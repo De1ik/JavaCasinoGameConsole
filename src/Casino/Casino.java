@@ -1,4 +1,8 @@
-package Main;
+package Casino;
+
+import Games.Roulette.RouletteManager;
+import Games.Slots.SlotManager;
+import Player.Player;
 
 import java.util.Scanner;
 
@@ -8,13 +12,14 @@ public class Casino {
     private final Scanner scanner;
     protected Player player;
     public RouletteManager rouletteManager;
-    Games games;
+    public SlotManager slotManager;
 
     public Casino(Player player){
         isCasino = true;
         this.player = player;
         scanner = new Scanner(System.in);
         rouletteManager = new RouletteManager(this.player);
+        slotManager = new SlotManager(this.player);
         setMenuSelect(-2);
     }
 
@@ -27,7 +32,7 @@ public class Casino {
         MenuSelect = menuSelect;
     }
 
-    public boolean getIsGame() {
+    public boolean getIsCasino() {
         return isCasino;
     }
 
@@ -50,8 +55,9 @@ public class Casino {
 
     public void selectGames(){
         System.out.println("11 <- Roulete");
+        System.out.println("12 <- Slots");
         System.out.println("0 <- back");
-        MenuSelection(11, 11, 0);
+        MenuSelection(11, 12, 0);
     }
 
     public void MenuSelection(int min, int max, int back) {

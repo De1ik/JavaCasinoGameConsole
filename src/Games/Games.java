@@ -1,9 +1,12 @@
-package Main;
+package Games;
+
+import Casino.Colours;
+import Player.Player;
 
 import java.util.Scanner;
 
-abstract class Games implements Colours{
-    private boolean isGame;
+abstract public class Games implements Colours{
+    private int isGame;
     private final Player player;
     private final Scanner scanner;
     public Games(Player player){
@@ -19,47 +22,57 @@ abstract class Games implements Colours{
         return player;
     }
 
-    public boolean getIsGame() {
+    public int getIsGame() {
         return isGame;
     }
 
-    public void setIsGame(boolean game) {
+    public void setIsGame(int game) {
         isGame = game;
     }
 
 
-    public boolean checkStake(){
+    public void setCurrentStakeConstant(boolean message) {
         int MINIMUM_STAKE = 5;
-        if (player.getCurrentStake() < MINIMUM_STAKE) {
-            if (player.getCurrentStake() != -1) {
-                System.out.println("QWERTREWQW");
-                System.out.println("The minimum stake is " + MINIMUM_STAKE + " !");
-            }
-            return false;
-        }
-        else if (player.getCurrentStake() > player.getBalance()) {
-            System.out.println("Insufficient on the balance sheet");
-            return false;
-        }
-        else return true;
-
-    }
-    public void doStake(){
+        double number;
+        player.showBalance();
         System.out.println("Make your Stake (The minimum stake is 5):");
-        System.out.println("-1 <- Go back");
-        player.setCurrentStake(scanner.nextDouble());
+//        if (message) {
+//            System.out.println("-1 <- Go back");
+//        }
+        number = scanner.nextDouble();
 
-        if (checkStake()){
+        if (number < MINIMUM_STAKE) {
+            if (player.getCurrentStake() != -1) {
+                System.out.println("The minimum stake is " + MINIMUM_STAKE + " !");
+                setCurrentStakeConstant(message);
+            }
+        }
+        else player.setCurrentStake(number);
+    }
+
+    public boolean checkStake(){
+            if (player.getBalance() < player.getCurrentStake()) {
+                System.out.println("Insufficient on the balance sheet");
+                return false;
+            }
+            else return true;
+
+        }
+
+    public void doStake(){
+        if (player.getCurrentStake() == 0){
+            System.out.println("Set the amount of the stake");
+            setCurrentStakeConstant(false);
+        }
+        else if (checkStake()){
             player.setBalance(player.getBalance() - player.getCurrentStake());
         }
-        else if (player.getCurrentStake() != -1){
-            doStake();
+        else {
+            setCurrentStakeConstant(true);
         }
-
-
     }
 
-    void increaseBalance(){
+    public void increaseBalance(){
         player.setBalance(player.getBalance() + (player.getCurrentStake() * player.getMultiplier()));
     }
 

@@ -1,8 +1,10 @@
-package Main;
+package Player;
+
+import Casino.Colours;
 
 import java.util.Scanner;
 
-public class Player implements Colours{
+public class Player implements Colours {
     private double balance;
     private int multiplier;
     private double currentStake;
@@ -12,6 +14,7 @@ public class Player implements Colours{
     public Player(){
         setBalance(50000);
         scanner = new Scanner(System.in);
+        setCurrentStake(0);
     }
 
     public double getBalance() {
@@ -38,10 +41,16 @@ public class Player implements Colours{
         this.currentStake = currentStake;
     }
 
-    void showBalance(){
+    public void showBalance(){
         String formattedResponce = String.format("%23s", "Your balance is: ");
         System.out.println("--------------------------------------");
         System.out.println(formattedResponce + this.balance);
+        System.out.println("--------------------------------------");
+    }
+    public void showCurrentStake(){
+        String formattedResponce = String.format("%23s", "Your stake is: ");
+        System.out.println("--------------------------------------");
+        System.out.println(formattedResponce + getCurrentStake());
         System.out.println("--------------------------------------");
         System.out.println();
     }

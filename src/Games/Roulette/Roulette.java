@@ -1,9 +1,10 @@
-package Main;
+package Games.Roulette;
 
+import Games.Games;
+import Player.Player;
 import java.util.HashMap;
-import java.util.Scanner;
 
-abstract class Roulette extends Games implements GenerateRoulette{
+abstract class Roulette extends Games implements GenerateRoulette {
     final private static int[] numbers = new int[SIZE];
     private static HashMap<Integer, String> colours;
     public Roulette(Player player){

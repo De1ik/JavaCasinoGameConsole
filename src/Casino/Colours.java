@@ -1,4 +1,4 @@
-package Main;
+package Casino;
 
 public interface Colours {
     String Black = "\u001b[30m";

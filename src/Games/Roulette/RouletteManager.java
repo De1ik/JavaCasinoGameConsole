@@ -1,6 +1,6 @@
-package Main;
+package Games.Roulette;
 
-import java.awt.*;
+import Player.Player;
 
 public class RouletteManager extends RouletteGameProcess{
     public RouletteManager(Player player) {
@@ -10,7 +10,7 @@ public class RouletteManager extends RouletteGameProcess{
     public void managmentStake(){
         switch (getTypeStake()){
             case -1:
-                setIsGame(false);
+                setIsGame(-1);
                 setTypeStake(0);
                 break;
             case 0:
@@ -56,7 +56,7 @@ public class RouletteManager extends RouletteGameProcess{
             setTypeStake(0);
             managmentStake();
         }
-        else if (!getIsGame()){
+        else if (getIsGame() != 1){
             setTypeStake(-1);
             managmentStake();
         }

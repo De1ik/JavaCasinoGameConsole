@@ -1,6 +1,10 @@
-package Main;
+package Casino;
 
-public class CasinoManager extends Casino{
+import Casino.Casino;
+import Games.Slots.SlotManager;
+import Player.Player;
+
+public class CasinoManager extends Casino {
 
     public CasinoManager(Player player) {
         super(player);
@@ -25,12 +29,18 @@ public class CasinoManager extends Casino{
                 Menu();
                 break;
             case 11:
-                rouletteManager.setIsGame(true);
-                while(rouletteManager.getIsGame()){
+                rouletteManager.setIsGame(1);
+                while(rouletteManager.getIsGame() == 1){
                     rouletteManager.managmentStake();
                 }
                 Menu();
                 break;
+            case 12:
+                slotManager.setIsGame(2);
+                while(slotManager.getIsGame() == 2){
+                    slotManager.mangerSlot();
+                }
+                Menu();
             default:
                 Menu();
 

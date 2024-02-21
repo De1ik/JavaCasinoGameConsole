@@ -1,12 +1,13 @@
-package Main;
+package Games.Roulette;
 
-public class RouletteGameProcess extends Roulette{
+import Player.Player;
+
+public class RouletteGameProcess extends Roulette {
     static String colourNumber;
     private int typeStake;
     private int EvenOdd;
     private int RedBlackGreen;
     private int exactNumberStake;
-    //    private int multiplier;
     private int resultNumber;
     private int resultRedBlackGreen;
     private int resultEvenOdd;
