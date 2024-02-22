@@ -1,6 +1,5 @@
 package Games.Slots;
 
-import Games.Games;
 import Player.Player;
 
 public class SlotManager extends SlotGameProcess {
@@ -8,26 +7,27 @@ public class SlotManager extends SlotGameProcess {
         super(player);
     }
 
-    public void mangerSlot() {
+    public void managerGame() {
         switch (getPlaySlot()) {
             case -1:
                 setIsGame(-1);
+                setPlaySlot(-2);
                 break;
             case 1:
-                runSlot();
-                showSlotMessage();
+                runCurrentGame();
+                menuGame();
                 break;
             case 2:
-                setCurrentStakeConstant(false);
-                showSlotMessage();
+                setCurrentStakeConstant();
+                menuGame();
                 break;
             case 3:
                 getPlayer().showBalance();
-                showSlotMessage();
+                menuGame();
                 break;
             default:
-                showSlot();
-                showSlotMessage();
+                showField();
+                menuGame();
         }
     }
 

@@ -1,16 +1,14 @@
 package Casino;
 
-import Casino.Casino;
-import Games.Slots.SlotManager;
 import Player.Player;
 
-public class CasinoManager extends Casino {
+public class CasinoManager extends Casino{
 
     public CasinoManager(Player player) {
         super(player);
     }
 
-    public void managmentStart(){
+    public void managerCasino(){
         switch (getMenuSelect()){
             case -2:
                 startMessage();
@@ -31,19 +29,16 @@ public class CasinoManager extends Casino {
             case 11:
                 rouletteManager.setIsGame(1);
                 while(rouletteManager.getIsGame() == 1){
-                    rouletteManager.managmentStake();
+                    rouletteManager.managerGame();
                 }
                 Menu();
                 break;
             case 12:
                 slotManager.setIsGame(2);
                 while(slotManager.getIsGame() == 2){
-                    slotManager.mangerSlot();
+                    slotManager.managerGame();
                 }
                 Menu();
-            default:
-                Menu();
-
         }
     }
 }

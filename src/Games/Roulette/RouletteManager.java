@@ -2,19 +2,16 @@ package Games.Roulette;
 
 import Player.Player;
 
-public class RouletteManager extends RouletteGameProcess{
+public class RouletteManager extends RouletteGameProcess {
     public RouletteManager(Player player) {
         super(player);
     }
 
-    public void managmentStake(){
+    public void managerGame(){
         switch (getTypeStake()){
             case -1:
                 setIsGame(-1);
                 setTypeStake(0);
-                break;
-            case 0:
-                menuStake();
                 break;
             case 1:
                 getPlayer().setMultiplier(2);
@@ -44,22 +41,34 @@ public class RouletteManager extends RouletteGameProcess{
             case 6:
                 getPlayer().setMultiplier(36);
                 exactNumber();
-                if (getTypeStake() != 6) managmentStake();
+                if (getTypeStake() != 6) managerGame();
                 else StakeAndResult();
                 break;
+            case 7:
+                getPlayer().showBalance();
+                menuGame();
+                break;
+            case 8:
+                setCurrentStakeConstant();
+                menuGame();
+                break;
+            default:
+                menuGame();
         }
     }
 
     public void StakeAndResult(){
-        doStake();
-        if (getPlayer().getCurrentStake() == -1) {
-            setTypeStake(0);
-            managmentStake();
+        if (doStake()){
+            if (getPlayer().getCurrentStake() == -1) {
+                setTypeStake(0);
+                managerGame();
+            }
+            else if (getIsGame() != 1){
+                setTypeStake(-1);
+                managerGame();
+            }
+            else runCurrentGame();
         }
-        else if (getIsGame() != 1){
-            setTypeStake(-1);
-            managmentStake();
-        }
-        else gameResult();
+        else menuGame();
     }
 }

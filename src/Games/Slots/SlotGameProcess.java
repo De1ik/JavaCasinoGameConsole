@@ -16,29 +16,51 @@ public class SlotGameProcess extends Slots {
         this.playSlot = playSlot;
     }
 
-    public void showSlotMessage() {
+    @Override
+    public void generateGame() {
+        super.generateGame();
+    }
+
+    @Override
+    public void showField() {
+        super.showField();
+    }
+
+    @Override
+    public void menuGame() {
         getPlayer().showCurrentStake();
         System.out.println("3 <- Show balance");
         System.out.println("2 <- Change the Stake");
         System.out.println("1 <- Play Slot");
         System.out.println("-1 <- Back to Main List");
-        MenuSlotsSelection(-1, 3);
+        MenuGameSelection(-1, 3);
     }
 
-    public void runSlot() {
+    @Override
+    public void MenuGameSelection(int min, int max) {
+        setPlaySlot(getScanner().nextInt());
+        while ((playSlot < min || playSlot > max)) {
+            System.out.println("Enter the valid code of action!");
+            setPlaySlot(getScanner().nextInt());
+        }
+    }
+
+    @Override
+    public void runCurrentGame() {
         //change the balance of the player
         doStake();
         setCurrentGeneration();
-        showSlot();
-        if (checkWin()) {
+        showField();
+        if (checkGameWin()) {
             double total = getPlayer().getMultiplier() * getPlayer().getCurrentStake();
             getPlayer().setBalance(getPlayer().getBalance() + total);
             winnerMessage();
         }
-        resetCurrentGeneration();
+        gameReset();
     }
 
-    public boolean checkWin() {
+    @Override
+    public boolean checkGameWin() {
         switch (getCurrentGeneration()) {
             case "111":
                 getPlayer().setMultiplier(3);
@@ -51,14 +73,6 @@ public class SlotGameProcess extends Slots {
                 return true;
             default:
                 return false;
-        }
-    }
-
-    public void MenuSlotsSelection(int min, int max) {
-        setPlaySlot(getScanner().nextInt());
-        while ((playSlot < min || playSlot > max)) {
-            System.out.println("Enter the valid code of action!");
-            setPlaySlot(getScanner().nextInt());
         }
     }
 

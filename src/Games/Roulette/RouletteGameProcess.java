@@ -42,8 +42,21 @@ public class RouletteGameProcess extends Roulette {
         RedBlackGreen = redBlackGreen;
     }
 
-    public void menuStake(){
-        show_field();
+    @Override
+    public void generateGame() {
+        createNumb();
+        createCol();
+    }
+
+    @Override
+    public void showField() {
+        super.showField();
+    }
+
+    @Override
+    public void menuGame(){
+        showField();
+        getPlayer().showCurrentStake();
         System.out.println("You can make different stakes: ");
         System.out.println("1 <- Even number (2x)");
         System.out.println("2 <- Odd number (2x)");
@@ -51,10 +64,13 @@ public class RouletteGameProcess extends Roulette {
         System.out.println("4 <- Black cell (2x)");
         System.out.println("5 <- Green cell (36x)");
         System.out.println("6 <- Exact number (36x)");
+        System.out.println("7 <- Show Balance");
+        System.out.println("8 <- Change the Stake");
         System.out.println("-1 <- Back to Main List");
-        MenuGameSelection(0, 6);
+        MenuGameSelection(0, 8);
     }
 
+    @Override
     public void MenuGameSelection(int min, int max) {
         typeStake = getScanner().nextInt();
         while ((typeStake < min || typeStake > max) && typeStake != -1){
@@ -63,20 +79,8 @@ public class RouletteGameProcess extends Roulette {
         }
     }
 
-    public void exactNumber(){
-        System.out.println("Select the cell: ");
-        System.out.println("-1 <- Go back");
-        exactNumberStake = getScanner().nextInt();
-        while (exactNumberStake < -1 || exactNumberStake > 36){
-            System.out.println("Invalid number of cell");
-            exactNumberStake = getScanner().nextInt();
-        }
-        if (exactNumberStake == -1){
-            typeStake = 0;
-        }
-    }
-
-    public void generateResult(){
+    @Override
+    public void runCurrentGame(){
         resultNumber = (int) (Math.random() * 37);
         //set resultEvenOdd
         if (resultNumber % 2 == 0) resultEvenOdd = 1;
@@ -95,27 +99,47 @@ public class RouletteGameProcess extends Roulette {
             resultRedBlackGreen = 3;
             colourNumber = Green;
         }
-    }
 
-    public void gameResult(){
-        generateResult();
         resultMessage();
-        if (RedBlackGreen == resultRedBlackGreen || EvenOdd == resultEvenOdd || exactNumberStake == resultNumber){
+        if (checkGameWin()){
             increaseBalance();
             winnerMessage();
         }
-        else {
+        else{
             loseMessage();
         }
-        EvenOdd = -1;
-        RedBlackGreen = -1;
-        exactNumberStake = -1;
-
+        gameReset();
         gameAgain();
     }
 
+    @Override
+    public boolean checkGameWin(){
+        return RedBlackGreen == resultRedBlackGreen || EvenOdd == resultEvenOdd || exactNumberStake == resultNumber;
+    }
+
+    @Override
+    public void gameReset(){
+        EvenOdd = -1;
+        RedBlackGreen = -1;
+        exactNumberStake = -1;
+    }
+
+
+    public void exactNumber(){
+        System.out.println("Select the cell: ");
+        System.out.println("-1 <- Go back");
+        exactNumberStake = getScanner().nextInt();
+        while (exactNumberStake < -1 || exactNumberStake > 36){
+            System.out.println("Invalid number of cell");
+            exactNumberStake = getScanner().nextInt();
+        }
+        if (exactNumberStake == -1){
+            typeStake = 0;
+        }
+    }
+
     public void resultMessage(){
-        show_field();
+        showField();
         System.out.println("The current number is: " + colourNumber + " " + resultNumber);
     }
 

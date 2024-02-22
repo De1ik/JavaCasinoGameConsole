@@ -11,7 +11,7 @@ public class Main {
         Player player = new Player();
         CasinoManager casinoManager = new CasinoManager(player);
         while (casinoManager.getIsCasino()){
-            casinoManager.managmentStart();
+            casinoManager.managerCasino();
         }
     }
 }

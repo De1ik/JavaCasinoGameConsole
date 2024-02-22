@@ -1,10 +1,13 @@
 package Games.Roulette;
 
 import Games.Games;
+import Games.GameMainFunctionallity;
 import Player.Player;
 import java.util.HashMap;
 
-abstract class Roulette extends Games implements GenerateRoulette {
+abstract class Roulette extends Games {
+    final private static int SIZE = 37;
+    final private static int HALF_SIZE = SIZE/2;
     final private static int[] numbers = new int[SIZE];
     private static HashMap<Integer, String> colours;
     public Roulette(Player player){
@@ -14,20 +17,18 @@ abstract class Roulette extends Games implements GenerateRoulette {
         createCol();
     }
 
-    @Override
     public void createNumb() {
         for (int i = 0; i < SIZE; i++){
             numbers[i] = i;
         }
     }
-
-    @Override
     public void createCol() {
         int prevRed = 0;
         int prevBlack = 0;
         int randomVal;
         int countRed = 0;
         int countBlack = 0;
+
 
         for (int i = 0; i < SIZE; i++){
             randomVal = (int) (Math.random()*3);
@@ -47,7 +48,7 @@ abstract class Roulette extends Games implements GenerateRoulette {
     }
 
     @Override
-    public void show_field(){
+    public void showField(){
         int count = 0;
         int box_count = 1;
         separate();

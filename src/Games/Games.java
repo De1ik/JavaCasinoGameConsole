@@ -5,7 +5,10 @@ import Player.Player;
 
 import java.util.Scanner;
 
-abstract public class Games implements Colours{
+abstract public class Games implements Colours, GameMainFunctionallity{
+
+    final private int MINIMUM_STAKE = 5;
+    final private int MAXIMUM_STAKE = 50000;
     private int isGame;
     private final Player player;
     private final Scanner scanner;
@@ -30,28 +33,35 @@ abstract public class Games implements Colours{
         isGame = game;
     }
 
+    public int getMINIMUM_STAKE() {
+        return MINIMUM_STAKE;
+    }
 
-    public void setCurrentStakeConstant(boolean message) {
-        int MINIMUM_STAKE = 5;
+    public int getMAXIMUM_STAKE() {
+        return MAXIMUM_STAKE;
+    }
+
+    public void setCurrentStakeConstant() {
         double number;
         player.showBalance();
-        System.out.println("Make your Stake (The minimum stake is 5):");
-//        if (message) {
-//            System.out.println("-1 <- Go back");
-//        }
+        System.out.println("Make your Stake (The minimum/maximum stake are 5/50k):");
         number = scanner.nextDouble();
 
-        if (number < MINIMUM_STAKE) {
+        if (number < getMINIMUM_STAKE()) {
             if (player.getCurrentStake() != -1) {
-                System.out.println("The minimum stake is " + MINIMUM_STAKE + " !");
-                setCurrentStakeConstant(message);
+                System.out.println("The minimum stake is " + getMINIMUM_STAKE() + " !");
+                setCurrentStakeConstant();
             }
+        }
+        else if (number > getMAXIMUM_STAKE()){
+            System.out.println("The maximum stake is " + getMAXIMUM_STAKE() + " !");
+            setCurrentStakeConstant();
         }
         else player.setCurrentStake(number);
     }
 
     public boolean checkStake(){
-            if (player.getBalance() < player.getCurrentStake()) {
+            if (player.getBalance() < player.getCurrentStake())  {
                 System.out.println("Insufficient on the balance sheet");
                 return false;
             }
@@ -59,16 +69,13 @@ abstract public class Games implements Colours{
 
         }
 
-    public void doStake(){
-        if (player.getCurrentStake() == 0){
-            System.out.println("Set the amount of the stake");
-            setCurrentStakeConstant(false);
-        }
-        else if (checkStake()){
+    public boolean doStake(){
+        if (checkStake()){
             player.setBalance(player.getBalance() - player.getCurrentStake());
+            return true;
         }
         else {
-            setCurrentStakeConstant(true);
+            return false;
         }
     }
 

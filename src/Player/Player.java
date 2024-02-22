@@ -8,13 +8,12 @@ public class Player implements Colours {
     private double balance;
     private int multiplier;
     private double currentStake;
-    double MINIMUM_STAKE = 5;
     Scanner scanner;
 
     public Player(){
         setBalance(50000);
         scanner = new Scanner(System.in);
-        setCurrentStake(0);
+        setCurrentStake(5);
     }
 
     public double getBalance() {
